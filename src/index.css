@@ -6,3 +6,7 @@
 @theme {
     --font-rancho: "Rancho", "cursive";
 }
+
+.navStyle .active{
+    border: 1px solid green;
+}

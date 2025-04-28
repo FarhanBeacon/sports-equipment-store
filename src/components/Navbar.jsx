@@ -1,16 +1,20 @@
 import React from "react";
-import ses from "../../public/ses.gif";
+import ses from "../assets/ses.gif";
+import { NavLink } from "react-router";
 
 const Navbar = () => {
   const links = [
     <li>
-      <a>Item 1</a>
+      <NavLink to={"/"}>Home</NavLink>
     </li>,
     <li>
-      <a>Item 1</a>
+      <NavLink to={"/allEquipment"}>All Equipment</NavLink>
     </li>,
     <li>
-      <a>Item 1</a>
+      <NavLink to={"/addEquipment"}>Add Equipment</NavLink>
+    </li>,
+    <li>
+      <NavLink to={"/myList"}>My List</NavLink>
     </li>,
   ];
   return (
@@ -37,7 +41,7 @@ const Navbar = () => {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow navStyle"
             >
               {links}
             </ul>
@@ -50,7 +54,7 @@ const Navbar = () => {
           </div>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">{links}</ul>
+          <ul className="menu menu-horizontal px-1 navStyle">{links}</ul>
         </div>
         <div className="navbar-end">
           <a className="btn text-xl md:text-2xl font-rancho">Login</a>
