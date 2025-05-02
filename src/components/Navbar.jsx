@@ -1,19 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
 import ses from "../assets/ses.gif";
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
+import { AuthContext } from "../providers/AuthProvider";
+import Button from "daisyui/components/button";
 
 const Navbar = () => {
+  const { user, signOutUser } = useContext(AuthContext);
   const links = [
-    <li>
+    <li key={1}>
       <NavLink to={"/"}>Home</NavLink>
     </li>,
-    <li>
+    <li key={2}>
       <NavLink to={"/allEquipment"}>All Equipment</NavLink>
     </li>,
-    <li>
+    <li key={3}>
       <NavLink to={"/addEquipment"}>Add Equipment</NavLink>
     </li>,
-    <li>
+    <li key={4}>
       <NavLink to={"/myList"}>My List</NavLink>
     </li>,
   ];
@@ -56,8 +59,11 @@ const Navbar = () => {
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1 navStyle">{links}</ul>
         </div>
-        <div className="navbar-end">
-          <a className="btn text-xl md:text-2xl font-rancho">Login</a>
+        <div className="navbar-end space-x-4">
+          <h4 className="text-xl font-semibold">{user?.email}</h4>
+          {
+            user ? <button onClick={signOutUser} className="btn text-xl md:text-2xl font-rancho">Logout</button> : <Link to={"/login"} className="btn text-xl md:text-2xl font-rancho">Login</Link>
+          }
         </div>
       </div>
     </>
