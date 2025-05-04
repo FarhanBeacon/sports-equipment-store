@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
 import ses from "../assets/ses.gif";
-import { Link, NavLink } from "react-router";
+import { Link, NavLink, useNavigate } from "react-router";
 import { AuthContext } from "../providers/AuthProvider";
-import Button from "daisyui/components/button";
 
 const Navbar = () => {
   const { user, signOutUser } = useContext(AuthContext);
+  const navigate = useNavigate();
   const links = [
     <li key={1}>
       <NavLink to={"/"}>Home</NavLink>
@@ -13,12 +13,16 @@ const Navbar = () => {
     <li key={2}>
       <NavLink to={"/allEquipment"}>All Equipment</NavLink>
     </li>,
-    <li key={3}>
-      <NavLink to={"/addEquipment"}>Add Equipment</NavLink>
-    </li>,
-    <li key={4}>
-      <NavLink to={"/myList"}>My List</NavLink>
-    </li>,
+    ...(user
+      ? [
+          <li key={3}>
+            <NavLink to={"/addEquipment"}>Add Equipment</NavLink>
+          </li>,
+          <li key={4}>
+            <NavLink to={`/myList/${user.email}`}>My List</NavLink>
+          </li>,
+        ]
+      : []),
   ];
   return (
     <>
@@ -61,9 +65,24 @@ const Navbar = () => {
         </div>
         <div className="navbar-end space-x-4">
           <h4 className="text-xl font-semibold">{user?.email}</h4>
-          {
-            user ? <button onClick={signOutUser} className="btn text-xl md:text-2xl font-rancho">Logout</button> : <Link to={"/login"} className="btn text-xl md:text-2xl font-rancho">Login</Link>
-          }
+          {user ? (
+            <button
+              onClick={()=> {
+                signOutUser()
+                  .then(() => {
+                    navigate("/");
+                  })
+                  .catch((error) => alert(error.message));
+              }}
+              className="btn text-xl md:text-2xl font-rancho"
+            >
+              Logout
+            </button>
+          ) : (
+            <Link to={"/login"} className="btn text-xl md:text-2xl font-rancho">
+              Login
+            </Link>
+          )}
         </div>
       </div>
     </>

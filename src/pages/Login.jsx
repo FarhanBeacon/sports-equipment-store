@@ -3,8 +3,10 @@ import { Link, useNavigate } from "react-router";
 import { AuthContext } from "../providers/AuthProvider";
 
 const Login = () => {
-  const { signInUser, signInWithGoogle, setUser } = useContext(AuthContext);
+  const { signInUser, signInWithGoogle, setUser, setLoading } =
+    useContext(AuthContext);
   const navigate = useNavigate();
+
   const handleLogin = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -13,12 +15,15 @@ const Login = () => {
     console.log(email, password);
 
     signInUser(email, password)
-      .then(() => {
-        // Handle successful login here, e.g., redirect to a different page
+      .then((result) => {
+        setUser(result.user);
         navigate("/");
       })
       .catch((error) => {
         console.log(error.message);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
@@ -27,9 +32,27 @@ const Login = () => {
       .then((result) => {
         setUser(result.user);
         navigate("/");
+        const { displayName, email } = result.user;
+        const cUser = { name: displayName, email };
+
+        // save user to database
+        fetch("http://localhost:5000/users", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(cUser),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+          });
       })
       .catch((error) => {
         console.log(error.message);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
   return (

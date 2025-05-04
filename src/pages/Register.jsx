@@ -1,25 +1,44 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../providers/AuthProvider";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import swal from 'sweetalert';
 
 const Register = () => {
-  const { createUser, updateUserProfile, setUser } = useContext(AuthContext);
+  const { createUser, updateUserProfile, signOutUser, setLoading } = useContext(AuthContext);
+  const navigate = useNavigate();
   const handleRegister = (e) => {
     e.preventDefault();
     const form = e.target;
     const name = form.name.value;
     const email = form.email.value;
     const password = form.password.value;
-    const cUser = { name, email, password };
-    console.log(cUser);
+    const cUser = { name, email };
 
     createUser(email, password)
-      .then((result) => {
-        updateUserProfile(name)
-        setUser(result.user);
+      .then(() => {
+        updateUserProfile(name);
+        signOutUser();
+        navigate("/login");
+        // save user to database
+        fetch("http://localhost:5000/users", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(cUser),
+        })
+        .then(res=> res.json())
+        .then(data=>{
+          if(data.insertedId){
+            swal("Registration Successful!", "Please Login to Continue", "success");
+          }
+        })
       })
       .catch((error) => {
         console.log(error.message);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
   return (

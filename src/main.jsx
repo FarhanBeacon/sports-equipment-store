@@ -8,6 +8,10 @@ import AuthProvider from "./providers/AuthProvider.jsx";
 import Home from "./pages/Home.jsx";
 import Register from "./pages/Register.jsx";
 import Login from "./pages/Login.jsx";
+import AllEquipment from "./pages/AllEquiment.jsx";
+import PrivateRoute from "./routes/PrivateRoute.jsx";
+import AddEquipment from "./pages/AddEquipment.jsx";
+import MyList from "./pages/MyList.jsx";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +29,20 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <Register />,
+      },
+      {
+        path: "/allEquipment",
+        element:<AllEquipment />,
+        loader: ()=> fetch("http://localhost:5000/equipments"),
+      },
+      {
+        path: "/addEquipment",
+        element: <PrivateRoute><AddEquipment /></PrivateRoute>,
+      },
+      {
+        path: "/myList/:email",
+        element: <PrivateRoute><MyList /></PrivateRoute>,
+        loader: ({params}) => fetch(`http://localhost:5000/equipments/${params.email}`),
       }
     ],
   },
