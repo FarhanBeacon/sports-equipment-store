@@ -10,10 +10,18 @@ const AllEquiment = () => {
           <div key={equipment._id} className="card bg-base-100 shadow-sm">
             <div className="card-body">
               <h2 className="card-title">{equipment.itemName}</h2>
-              <p>{equipment.description}</p>
+              <div>
+                <p className="text-xs">
+                  Added By{" "}
+                  <span className="text-green-500">
+                    {equipment.userEmail.split("@")[0]}
+                  </span>
+                </p>
+                <p>{equipment.description}</p>
+              </div>
             </div>
-            <figure>
-              <img src={equipment.photoUrl} alt="item-image" />
+            <figure className="h-[300px]">
+              <img src={equipment.photoUrl} className="h-full w-full" alt="item-image" />
             </figure>
           </div>
         ))}

@@ -42,7 +42,7 @@ const router = createBrowserRouter([
       {
         path: "/myList/:email",
         element: <PrivateRoute><MyList /></PrivateRoute>,
-        loader: ({params}) => fetch(`http://localhost:5000/equipments/${params.email}`),
+        loader: ({params}) => fetch(`http://localhost:5000/equipments/email/${params.email}`),
       }
     ],
   },
