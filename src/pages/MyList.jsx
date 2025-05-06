@@ -18,7 +18,7 @@ const MyList = () => {
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
-        fetch(`http://localhost:5000/equipments/id/${id}`, {
+        fetch(`https://sports-equipment-store-server-xi.vercel.app/equipments/id/${id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())
@@ -45,7 +45,7 @@ const MyList = () => {
     console.log(equipment);
 
     // update item in the database
-    fetch(`http://localhost:5000/equipments/id/${itemForEdit._id}`, {
+    fetch(`https://sports-equipment-store-server-xi.vercel.app/equipments/id/${itemForEdit._id}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",

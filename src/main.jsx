@@ -33,7 +33,7 @@ const router = createBrowserRouter([
       {
         path: "/allEquipment",
         element:<AllEquipment />,
-        loader: ()=> fetch("http://localhost:5000/equipments"),
+        loader: ()=> fetch("https://sports-equipment-store-server-xi.vercel.app/equipments"),
       },
       {
         path: "/addEquipment",
@@ -42,7 +42,7 @@ const router = createBrowserRouter([
       {
         path: "/myList/:email",
         element: <PrivateRoute><MyList /></PrivateRoute>,
-        loader: ({params}) => fetch(`http://localhost:5000/equipments/email/${params.email}`),
+        loader: ({params}) => fetch(`https://sports-equipment-store-server-xi.vercel.app/equipments/email/${params.email}`),
       }
     ],
   },

@@ -20,7 +20,7 @@ const Register = () => {
         signOutUser();
         navigate("/login");
         // save user to database
-        fetch("http://localhost:5000/users", {
+        fetch("https://sports-equipment-store-server-xi.vercel.app/users", {
           method: "POST",
           headers: {
             "content-type": "application/json",

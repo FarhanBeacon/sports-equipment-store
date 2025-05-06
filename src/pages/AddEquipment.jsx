@@ -12,7 +12,7 @@ const AddEquipment = () => {
     const photoUrl = form.photoUrl.value;
     const equipment = { itemName, description, photoUrl, userEmail: user.email };
 
-    fetch("http://localhost:5000/equipments",{
+    fetch("https://sports-equipment-store-server-xi.vercel.app/equipments",{
         method: "POST",
         headers: {
             "content-type": "application/json",
