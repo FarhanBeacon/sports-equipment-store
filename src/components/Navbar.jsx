@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import ses from "../assets/ses.gif";
 import { Link, NavLink, useNavigate } from "react-router";
 import { AuthContext } from "../providers/AuthProvider";
+import userProfile from "../assets/userProfile.png";
 
 const Navbar = () => {
   const { user, signOutUser } = useContext(AuthContext);
@@ -64,10 +65,19 @@ const Navbar = () => {
           <ul className="menu menu-horizontal px-1 navStyle">{links}</ul>
         </div>
         <div className="navbar-end space-x-4">
-          <h4 className="text-xl font-semibold">{user?.email}</h4>
+          <h4 className="text-xl font-semibold">
+            {user ? (
+              <div className="tooltip tooltip-bottom" data-tip={user.email}>
+                {" "}
+                <img src={userProfile} className="w-[30px] md:w-[50px]" />
+              </div>
+            ) : (
+              ""
+            )}
+          </h4>
           {user ? (
             <button
-              onClick={()=> {
+              onClick={() => {
                 signOutUser()
                   .then(() => {
                     navigate("/");

@@ -1,4 +1,5 @@
 import React from "react";
+import basketball from "../assets/basketball-ball-preview.png";
 
 const Home = () => {
   return (
@@ -12,8 +13,8 @@ const Home = () => {
         <div className="relative md:w-1/2">
           <img
             className="spin"
-            src="/public/basketball-ball-preview.png"
-            alt=""
+            src={basketball}
+            alt="image"
           />
         </div>
       </div>
